@@ -1,0 +1,12 @@
+<x-advance-layout :title="'Home Page'">
+    <p>Welcome to the Home Page!</p>
+    <p>Hi!</p>
+    <x-slot name="sidebar">
+        <p>Sidebar for Home Page</p>
+    </x-slot>
+    <h1>Home Page Header</h1>
+    <h1>How are you?</h1>
+    <x-slot name="footer">
+        <p>Home Page Footer</p>
+    </x-slot>
+</x-advance-layout>
