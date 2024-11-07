@@ -13,10 +13,9 @@
                     </div>
                     <div class="hidden md:flex space-x-20 p-4">
                         <a href="{{ route('student.schedule') }}" class="text-white hover:opacity-75">Schedule</a>
-                        <a href="{{ route('student.classroom') }}" class="text-white hover:opacity-75">Classroom</a>
                         <div class="relative">
                             <button id="accountPictureDesktop" class="block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white">
-                                <img class="h-full w-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2A7D3pZJJSVoO2hwyCFz1w--NMgFj74ho_w&s" alt="pikachu">
+                                <img class="h-full w-full object-cover" src="{{ asset('storage/' . $student->profile_picture) }}" alt="Profile">
                             </button>
                             <div id="accountDropDownDesktop" class="hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-10">
                                 <form action="{{ route('student.logout') }}" method="POST" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
@@ -37,10 +36,9 @@
                         </a>
                         <div class="flex gap-4 items-center relative">
                             <a href="{{ route('student.schedule') }}" class="text-white hover:opacity-75">Schedule</a>
-                            <a href="{{ route('student.classroom') }}" class="text-white hover:opacity-75">Classroom</a>
                             <div class="relative">
                                 <button id="accountPictureMobile" class="block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white">
-                                    <img class="h-full w-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2A7D3pZJJSVoO2hwyCFz1w--NMgFj74ho_w&s" alt="pikachu">
+                                    <img class="h-full w-full object-cover" src="{{ asset('storage/' . $student->profile_picture) }}" alt="Profile">
                                 </button>
                                 <div id="accountDropDownMobile" class="hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-10">
                                     <form action="{{ route('student.logout') }}" method="POST" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
@@ -69,84 +67,91 @@
             </div>
         </x-slot>
     
+        <div class="min-h-screen flex items-center justify-center bg-gray-100">
+            <div class="max-w-4xl w-full bg-white p-8 rounded-lg shadow-xl">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Your Profile</h2>
+        
+                <!-- Profile Picture Section and the information for each data-->
+                <div class="flex flex-col items-center mb-8">
+                    <div class="relative mb-4">
+                        
+                            @php
+                                $name = $student->name;
+                                $email = $student->email;
+                                $age = $student->age ?? 'Age not provided';  
+                                $phone_number = $student->phone_number ?? 'Phone_number not provided';  
+                                $address = $student->address ?? 'Address not provided';  
+                                $gender = $student->gender ?? 'Gender not provided';  
+                                $personality = $student->personality ?? 'Personality not provided';  
+                            @endphp
+                        
+                        <!-- Profile Picture -->
+                        <div>
+                            
+                            <img src="{{ asset('storage/' . $student->profile_picture) }}" alt="Profile Picture" width="150" class="rounded-full border">
+                            
+                        </div>
+                    </div>
+                </div>
 
-    <div class="min-h-screen flex items-center justify-center bg-gray-100">
-        <div class="max-w-lg w-full bg-white p-10 rounded-lg shadow-lg">
-            <h2 class="text-3xl font-bold text-center mb-6">Profile</h2>
-            
-            <!-- Profile Picture Section -->
-            <div class="flex flex-col items-center mb-6">
-                <div class="relative">
-                    <!-- Default Profile Picture or Uploaded Image -->
-                    <img id="profile-pic" 
-                         src="https://via.placeholder.com/150" 
-                         alt="Profile Picture" 
-                         class="w-32 h-32 rounded-full border-4 border-gray-300 object-cover">
-                    <!-- Camera Icon for Upload -->
-                    <label for="profile-picture-input" 
-                           class="absolute bottom-0 right-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" 
-                             class="h-5 w-5" 
-                             viewBox="0 0 20 20" 
-                             fill="currentColor">
-                            <path d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2H4zM3 9h2v2H3V9zm8 0h6v6h-6V9zM5 13h4v4H5v-4z" />
-                        </svg>
-                    </label>
-                    <input id="profile-picture-input" 
-                           type="file" 
-                           accept="image/*" 
-                           class="hidden" 
-                           onchange="displayImage(event)">
+                
+
+                <!-- Profile Information Section -->
+                <div class="space-y-6">
+
+                    <!-- Name Field -->
+                    <div class="flex justify-between">
+                        <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <p class="text-sm text-gray-700">{{$name}}</p>
+                    </div>
+        
+                    <!-- Age Field -->
+                    <div class="flex justify-between">
+                        <label class="block text-sm font-medium text-gray-700">Age</label>
+                        <p class="text-sm text-gray-700">{{$age}}</p>
+                    </div>
+        
+                    <!-- Email Field -->
+                    <div class="flex justify-between">
+                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <p class="text-sm text-gray-700">{{$email}}</p>
+                    </div>
+        
+                    <!-- Phone Number Field -->
+                    <div class="flex justify-between">
+                        <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <p class="text-sm text-gray-700">{{$phone_number}}</p>
+                    </div>
+        
+                    <!-- Address Field -->
+                    <div class="flex justify-between">
+                        <label class="block text-sm font-medium text-gray-700">Address</label>
+                        <p class="text-sm text-gray-700">{{$address}}</p>
+                    </div>
+        
+                    <!-- Gender Field -->
+                    <div class="flex justify-between">
+                        <label class="block text-sm font-medium text-gray-700">Gender</label>
+                        <p class="text-sm text-gray-700">{{$gender}}</p>
+                    </div>
+        
+                    <!-- Personality Field (Visible only for teachers) -->
+                    <div class="flex justify-between">
+                        <label class="block text-sm font-medium text-gray-700">Personality</label>
+                        <p class="text-sm text-gray-700">{{$personality}}</p>
+                    </div>
+
                 </div>
-                <p class="mt-2 text-gray-500 text-sm">Click on the image to upload a new profile picture</p>
+        
+                
+                <div class="mt-8 flex justify-center">
+                    <a href="{{ route('student.edit')}}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">
+                        Edit Profile
+                    </a>
+                </div>
             </div>
-    
-            <form>
-                <!-- Name Field -->
-                <label class="block mb-2 text-sm font-medium text-gray-700">Full Name</label>
-                <input type="text" class="w-full p-3 border rounded-md mb-4" value="John Doe">
-    
-                <!-- Age Field -->
-                <label class="block mb-2 text-sm font-medium text-gray-700">Age</label>
-                <input type="number" class="w-full p-3 border rounded-md mb-4" value="25">
-    
-                <!-- Email Field -->
-                <label class="block mb-2 text-sm font-medium text-gray-700">Email</label>
-                <input type="email" class="w-full p-3 border rounded-md mb-4" value="johndoe@example.com" readonly>
-    
-                <!-- Phone Number Field -->
-                <label class="block mb-2 text-sm font-medium text-gray-700">Phone Number</label>
-                <input type="tel" class="w-full p-3 border rounded-md mb-4" value="+1234567890">
-    
-                <!-- Address Field -->
-                <label class="block mb-2 text-sm font-medium text-gray-700">Address</label>
-                <input type="text" class="w-full p-3 border rounded-md mb-4" value="123 Main Street, City, Country">
-    
-                <!-- Gender Field -->
-                <label class="block mb-2 text-sm font-medium text-gray-700">Gender</label>
-                <select class="w-full p-3 border rounded-md mb-4">
-                    <option value="male" selected>Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-    
-                <!-- Account Type Field (Read-only) -->
-                <label class="block mb-2 text-sm font-medium text-gray-700">Account Type</label>
-                <input type="text" class="w-full p-3 border rounded-md mb-4" value="Teacher" readonly>
-    
-                <!-- Subject Specialty Field (Visible only for teachers) -->
-                <div class="teacher-field">
-                    <label class="block mb-2 text-sm font-medium text-gray-700">Subject Specialty</label>
-                    <input type="text" class="w-full p-3 border rounded-md mb-4" value="Grammar">
-                </div>
-    
-                <!-- Update Profile Button -->
-                <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600">
-                    Update Profile
-                </button>
-            </form>
         </div>
-    </div>
 
 </x-advance-layout>
+
 

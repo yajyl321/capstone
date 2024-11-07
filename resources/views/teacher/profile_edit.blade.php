@@ -68,94 +68,79 @@
                 </div>
             </div>
         </x-slot>
-    
+
         <div class="min-h-screen flex items-center justify-center bg-gray-100">
             <div class="max-w-4xl w-full bg-white p-8 rounded-lg shadow-xl">
                 <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Your Profile</h2>
         
-                <!-- Profile Picture Section and the information for each data-->
-                <div class="flex flex-col items-center mb-8">
-                    <div class="relative mb-4">
-                        
-                            @php
-                                $teacher = auth()->guard('teacher')->user();
-                                $name = $teacher->name;
-                                $email = $teacher->email;
-                                $age = $teacher->age ?? 'Age not provided';  
-                                $phone_number = $teacher->phone_number ?? 'Phone_number not provided';  
-                                $address = $teacher->address ?? 'Address not provided';  
-                                $gender = $teacher->gender ?? 'Gender not provided';  
-                                $personality = $teacher->personality ?? 'Personality not provided';  
-                            @endphp
-                        
+    
+                <form method="POST" action="{{ route('teacher.update') }}" enctype="multipart/form-data">
+                    @csrf
+                       
+                    <div class="space-y-6 max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+                
+                        <!-- Name -->
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" name="name" id="name" class="w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('name', $teacher->name) }}" required>
+                        </div>
+                
+                        <!-- Age -->
+                        <div>
+                            <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
+                            <input type="number" name="age" id="age" class="w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('age', $teacher->age) }}">
+                        </div>
+                
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" name="email" id="email" class="w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('email', $teacher->email) }}">
+                        </div>
+                
+                        <!-- Password -->
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            <input type="password" name="password" id="password" class="w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('password', $teacher->password) }}">
+                        </div>
+                
+                        <!-- Phone Number -->
+                        <div>
+                            <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                            <input type="text" name="phone_number" id="phone_number" class="w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('phone_number', $teacher->phone_number) }}">
+                        </div>
+                
+                        <!-- Address -->
+                        <div>
+                            <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+                            <textarea name="address" id="address" class="w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('address', $teacher->address) }}</textarea>
+                        </div>
+                
+                        <!-- Gender -->
+                        <div>
+                            <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                            <input type="text" name="gender" id="gender" class="w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('gender', $teacher->gender) }}">
+                        </div>
+                
+                        <!-- Personality -->
+                        <div>
+                            <label for="personality" class="block text-sm font-medium text-gray-700">Personality</label>
+                            <input type="text" name="personality" id="personality" class="w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('personality', $teacher->personality) }}">
+                        </div>
+                
                         <!-- Profile Picture -->
                         <div>
-                            
-                            <img src="{{ asset('storage/' . $teacher->profile_picture) }}" alt="Profile Picture" width="150" class="rounded-full border">
-                            
+                            <label for="profile_picture" class="block text-sm font-medium text-gray-700">Profile Picture</label>
+                            <input type="file" id="profile_picture" name="profile_picture" class="w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                
+                        <!-- Submit Button -->
+                        <div class="mt-8 text-center">
+                            <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-200">Update Profile</button>
                         </div>
                     </div>
-                </div>
-
-                
-
-                <!-- Profile Information Section -->
-                <div class="space-y-6">
-
-                    <!-- Name Field -->
-                    <div class="flex justify-between">
-                        <label class="block text-sm font-medium text-gray-700">Full Name</label>
-                        <p class="text-sm text-gray-700">{{$name}}</p>
-                    </div>
-        
-                    <!-- Age Field -->
-                    <div class="flex justify-between">
-                        <label class="block text-sm font-medium text-gray-700">Age</label>
-                        <p class="text-sm text-gray-700">{{$age}}</p>
-                    </div>
-        
-                    <!-- Email Field -->
-                    <div class="flex justify-between">
-                        <label class="block text-sm font-medium text-gray-700">Email</label>
-                        <p class="text-sm text-gray-700">{{$email}}</p>
-                    </div>
-        
-                    <!-- Phone Number Field -->
-                    <div class="flex justify-between">
-                        <label class="block text-sm font-medium text-gray-700">Phone Number</label>
-                        <p class="text-sm text-gray-700">{{$phone_number}}</p>
-                    </div>
-        
-                    <!-- Address Field -->
-                    <div class="flex justify-between">
-                        <label class="block text-sm font-medium text-gray-700">Address</label>
-                        <p class="text-sm text-gray-700">{{$address}}</p>
-                    </div>
-        
-                    <!-- Gender Field -->
-                    <div class="flex justify-between">
-                        <label class="block text-sm font-medium text-gray-700">Gender</label>
-                        <p class="text-sm text-gray-700">{{$gender}}</p>
-                    </div>
-        
-                    <!-- Personality Field (Visible only for teachers) -->
-                    <div class="flex justify-between">
-                        <label class="block text-sm font-medium text-gray-700">Personality</label>
-                        <p class="text-sm text-gray-700">{{$personality}}</p>
-                    </div>
-
-                </div>
-        
-                
-                <div class="mt-8 flex justify-center">
-                    <a href="{{ route('teacher.edit')}}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">
-                        Edit Profile
-                    </a>
-                </div>
+                </form>
+                        
             </div>
         </div>
 
-
 </x-advance-layout>
-
-

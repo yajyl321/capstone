@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,13 +17,38 @@ class DatabaseSeeder extends Seeder
         $this->call([
             StudentTableSeeder::class,
             TeachersTableSeeder::class,
-            
+            ScheduleSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
+        //     [
+        //         'name' => 'jay',
+        //         'email' => 'a@gmail.com',
+        //         'password' => Hash::make('1234'),
+        //         'role' => 'student',
+                
+        //     ],
+        //     [
+        //         'name' => 'a',
+        //         'email' => 'b@gmail.com',
+        //         'password' => Hash::make('1234'),
+        //         'role' => 'student',
+                
+        //     ],
+        //     [
+        //         'name' => 'b',
+        //         'email' => 'c@gmail.com',
+        //         'password' => Hash::make('1234'),
+        //         'role' => 'student',
+                
+        //     ],
+        //     [
+        //         'name' => 'c',
+        //         'email' => 'd@gmail.com',
+        //         'password' => Hash::make('1234'),
+        //         'role' => 'student',
+        //     ],
         // ]);
     }
 }

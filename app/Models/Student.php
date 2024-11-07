@@ -13,6 +13,10 @@ class Student extends Authenticatable
         'name',     
         'email',
         'password',
+        'age',
+        'phone_number',
+        'address',
+        'personality',
     ];
 
     
@@ -20,4 +24,9 @@ class Student extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

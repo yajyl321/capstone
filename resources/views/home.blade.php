@@ -44,7 +44,7 @@
                     <h2 class="text-3xl font-bold mb-8 text-gray-700">Are you a Student or a Teacher?</h2>
                     <div class="flex justify-center space-x-6">
                         <a href="{{ route('student.login')}}" class="px-8 py-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition duration-200 transform hover:scale-105">Student</a>
-                        <a href="teacher/register" class="px-8 py-3 bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition duration-200 transform hover:scale-105">Teacher</a>
+                        <a href="{{ route('teacher.login')}}" class="px-8 py-3 bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition duration-200 transform hover:scale-105">Teacher</a>
                     </div>
                     <div class="flex justify-center mt-8">
                         <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 border border-gray-300 rounded-full py-2 px-4 shadow-sm hover:shadow-md transition duration-150 transform hover:scale-105">Close</button>
@@ -58,7 +58,7 @@
                     <h2 class="text-3xl font-bold mb-8 text-gray-700">Are you a Student or a Teacher?</h2>
                     <div class="flex justify-center space-x-6">
                         <a href="{{ route('student.register')}}" class="px-8 py-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition duration-200 transform hover:scale-105">Student</a>
-                        <a href="teacher/register" class="px-8 py-3 bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition duration-200 transform hover:scale-105">Teacher</a>
+                        <a href="{{ route('teacher.register')}}" class="px-8 py-3 bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition duration-200 transform hover:scale-105">Teacher</a>
                     </div>
                     <div class="flex justify-center mt-8">
                         <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 border border-gray-300 rounded-full py-2 px-4 shadow-sm hover:shadow-md transition duration-150 transform hover:scale-105">Close</button>
@@ -148,7 +148,7 @@
     </x-slot>
 
     <!-- How to Section -->
-    <section id="instruction-card" class="py-20">
+    <section id="instruction-card" class="py-44">
         <div class="container mx-auto my-5">
           <h1 class="text-center text-4xl mb-4">How It Works</h1>
     
@@ -158,24 +158,12 @@
               <p>Begin by creating a personal account on our ESL website. Fill in your details, such as name, email, and password, to get started. If you're already a member, simply log in.</p>
             </div>
             <div class="bg-white shadow-md rounded-lg p-4">
-              <h5 class="font-semibold">2. Explore Courses and Lessons</h5>
-              <p>Browse through our extensive catalog of ESL courses. Whether you're a beginner, intermediate, or advanced learner, we have lessons tailored for your needs. You can filter courses by skill level, topic, or learning goals.</p>
-            </div>
-            <div class="bg-white shadow-md rounded-lg p-4">
-              <h5 class="font-semibold">3. Book a Class</h5>
+              <h5 class="font-semibold">2. Book a Class</h5>
               <p>Choose between live classes or pre-recorded lessons. For live classes, select a time that suits your schedule and secure your spot. For pre-recorded lessons, simply click and start learning at your own pace.</p>
             </div>
             <div class="bg-white shadow-md rounded-lg p-4">
-              <h5 class="font-semibold">4. Engage in Interactive Learning</h5>
+              <h5 class="font-semibold">3. Engage in Interactive Learning</h5>
               <p>Participate actively in your lessons! For live sessions, join discussions, ask questions, and collaborate with your instructor and classmates. For pre-recorded lessons, complete the exercises and quizzes provided.</p>
-            </div>
-            <div class="bg-white shadow-md rounded-lg p-4">
-              <h5 class="font-semibold">5. Complete Assignments and Quizzes</h5>
-              <p>After each lesson, complete any assignments or quizzes. This reinforces what you've learned and allows us to track your progress. You can find feedback on your assignments in your account dashboard.</p>
-            </div>
-            <div class="bg-white shadow-md rounded-lg p-4">
-              <h5 class="font-semibold">6. Track Your Progress</h5>
-              <p>Monitor your learning journey through your account dashboard. You'll find insights on completed lessons, assignments, and quizzes, helping you stay on track toward your English learning goals.</p>
             </div>
           </div>
         </div>
@@ -186,7 +174,7 @@
         <div class="container mx-auto p-4 text-center">
           <h1 class="text-4xl font-bold mb-4">Ready to Start Your Journey?</h1>
           <p class="text-lg mb-4">Enroll now and take the first step toward mastering English!</p>
-          <a href="/register" class="bg-blue-500 text-white font-semibold text-xl py-2 px-4 rounded-lg shadow-lg transition duration-300 hover:bg-blue-600" >
+          <a href="{{ route('student.register')}}" class="bg-blue-500 text-white font-semibold text-xl py-2 px-4 rounded-lg shadow-lg transition duration-300 hover:bg-blue-600" >
             Enroll Now
           </a>
         </div>

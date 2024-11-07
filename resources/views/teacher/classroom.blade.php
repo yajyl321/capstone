@@ -16,7 +16,7 @@
                       <a href="{{ route('teacher.classroom') }}" class="text-white hover:opacity-75">Classroom</a>
                       <div class="relative">
                           <button id="accountPictureDesktop" class="block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white">
-                              <img class="h-full w-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2A7D3pZJJSVoO2hwyCFz1w--NMgFj74ho_w&s" alt="pikachu">
+                              <img class="h-full w-full object-cover" src="{{ asset('storage/' . $teacher->profile_picture) }}" alt="Profile">
                           </button>
                           <div id="accountDropDownDesktop" class="hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-10">
                               <a href="{{ route('teacher.profile') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Account Settings</a>
@@ -41,7 +41,7 @@
                           <a href="{{ route('teacher.classroom') }}" class="text-white hover:opacity-75">Classroom</a>
                           <div class="relative">
                               <button id="accountPictureMobile" class="block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white">
-                                  <img class="h-full w-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2A7D3pZJJSVoO2hwyCFz1w--NMgFj74ho_w&s" alt="pikachu">
+                                  <img class="h-full w-full object-cover" src="{{ asset('storage/' . $teacher->profile_picture) }}" alt="Profile">
                               </button>
                               <div id="accountDropDownMobile" class="hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-10">
                                   <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Account Settings</a>

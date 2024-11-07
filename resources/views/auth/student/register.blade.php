@@ -49,7 +49,7 @@
         
             </div>
             <div class="text-sm font-light text-[#6B7280] pb-8 ">Sign up for an account on BrightWords Academy.</div>
-            <form action="{{ route('student.register') }}" method="POST" class="bg-white p-6 rounded shadow-md">  {{--for action: {{ route('student.register') }}--}}
+            <form action="{{ route('student.register') }}" method="POST" class="bg-white p-6 rounded shadow-md"> 
                 @csrf
                 <div class="mb-4">
                     <label for="name" class="block text-sm font-medium">Name</label>
@@ -68,7 +68,7 @@
                     <input type="password" name="password_confirmation" required class="mt-1 p-2 border rounded w-full" />
                 </div>
                 <button type="submit" class="bg-blue-500 text-white p-2 rounded">Register</button>
-            </form>
+            </form>            
             <p class="mt-4">Already have an account? <a href="{{ route('student.login') }}" class="text-blue-500">Login here</a>.</p> 
         </div>
     </div>

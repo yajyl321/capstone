@@ -27,7 +27,7 @@
                       </div>
                   </div>
               </div>
-
+  
               <!-- Mobile Navbar -->
               <div class="md:hidden relative">
                   <div class="flex space-x-20">
@@ -42,7 +42,7 @@
                                   <img class="h-full w-full object-cover" src="{{ asset('storage/' . auth()->guard('student')->user()->profile_picture) }}" alt="Profile">
                               </button>
                               <div id="accountDropDownMobile" class="hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-10">
-                                  <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Account Settings</a>
+                                  <a href="{{ route('student.profile') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Account Settings</a>
                                   <form action="{{ route('student.logout') }}" method="POST" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
                                     @csrf
                                     <button type="submit">Log out</button>
@@ -55,48 +55,36 @@
           </div>
       </nav>
     </x-slot>
-
-    <x-slot name="footer">
-        <div class="bg-gray-800 text-white p-6">
-            <div class="text-center">
-              <h1 class="text-2xl font-bold">BrightWords Academy</h1>
-              <p class="italic my-2">
-                "Success is not the key to happiness. Happiness is the key to
-                success. If you love what you are doing, you will be successful."
-              </p>
-              <p>Copyright &copy; 2024 | All Rights Reserved | WD103P</p>
-            </div>
-        </div>
-    </x-slot>
-
-    <div style="height: 100vh">
-        <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-60 my-44 mx-4">
-            @foreach($teacher as $name)
-                <img src="{{ asset('storage/' . $name->teacher->profile_picture) }}" class="w-24 h-24 rounded-full mb-3 border-4 border-indigo-500" alt="Profile Picture">
-                <h2 class="text-lg font-semibold text-gray-800">{{$name->teacher->name}}</h2>
-                <p class="text-sm text-gray-600 mb-4">English Teacher</p>
+  
+      <x-slot name="footer">
+          <div class="bg-gray-800 text-white p-6">
+              <div class="text-center">
+                <h1 class="text-2xl font-bold">BrightWords Academy</h1>
+                <p class="italic my-2">
+                  "Success is not the key to happiness. Happiness is the key to
+                  success. If you love what you are doing, you will be successful."
+                </p>
+                <p>Copyright &copy; 2024 | All Rights Reserved | WD103P</p>
+              </div>
+          </div>
+      </x-slot>
+  
+      <div class="container mx-auto" style="height: 100vh">
+        <h1 class="text-3xl font-semibold text-center my-6">Teachers</h1>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+            @foreach ($teachers as $teacher)
+                <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 flex flex-col items-center">
+                    <img src="{{ asset('storage/' . $teacher->profile_picture) }}" alt="Logo" class="w-24 h-24 rounded-full mb-4 object-cover">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ $teacher->name }}</h2>
+                    <a href="{{ route('student.teacher.profile', ['teacherId' => $teacher->id]) }}" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        View Profile
+                    </a>
+                </div>
             @endforeach
-            <div>
-                <h1>Hello</h1>
-            </div>
-            <div>
-                <form method="POST" action="" enctype="multipart/form-data">
-                    @csrf  
-                    <div class="space-y-6 max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-                        <div>
-                            <label for="address" class="block text-sm font-medium text-gray-700">Message</label>
-                            <textarea name="address" id="address" class="w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="mt-8 text-center">
-                            <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-200">Send</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
+        
     </div>
-    
 
-</x-advance-layout>
+  </x-advance-layout>
+  

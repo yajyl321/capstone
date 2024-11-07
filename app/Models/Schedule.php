@@ -5,24 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Lesson extends Model
+class Schedule extends Model
 {
     use HasFactory;
-    
-    protected $fillable = [
-        'student_id',
-        'teacher_id',
-        'date',
-        'time',
-    ];
 
-    public function student()
-    {
-        return $this->belongsTo(Student::class);
-    }
+    protected $fillable = ['teacher_id', 'time_slot', 'day_of_week', 'is_booked'];
 
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 }

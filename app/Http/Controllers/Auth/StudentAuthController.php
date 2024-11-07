@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Student;
 use App\Http\Controllers\Controller;
-use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,11 +21,11 @@ class StudentAuthController extends Controller
 
     public function register(Request $request)
     {
-        //Input data
+        // Validate input data
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:students',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:1|confirmed',
         ]);
 
         // Create a new student account from request
@@ -36,10 +35,11 @@ class StudentAuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        // After auth goes to the student index
+        // Log in the student and redirect
         Auth::guard('student')->login($student);
         return redirect()->route('student.index')->with('success', 'Registration successful! Welcome!');
     }
+
 
     public function login(Request $request)
     {

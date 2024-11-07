@@ -1,4 +1,4 @@
-<x-advance-layout :title="'Home Page'">
+<x-advance-layout :title="'BrightWords Academy'">
     
     <x-slot name="navbar">
       <nav class="bg-gradient-to-r from-[#ff6f61] to-[#ffb400] shadow-md sticky top-0 z-50">
@@ -13,10 +13,9 @@
                   </div>
                   <div class="hidden md:flex space-x-20 p-4">
                       <a href="{{ route('student.schedule') }}" class="text-white hover:opacity-75">Schedule</a>
-                      <a href="{{ route('student.classroom') }}" class="text-white hover:opacity-75">Classroom</a>
                       <div class="relative">
                           <button id="accountPictureDesktop" class="block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white">
-                              <img class="h-full w-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2A7D3pZJJSVoO2hwyCFz1w--NMgFj74ho_w&s" alt="pikachu">
+                              <img class="h-full w-full object-cover" src="{{ asset('storage/' . $student->profile_picture) }}" alt="Profile">
                           </button>
                           <div id="accountDropDownDesktop" class="hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-10">
                               <a href="{{ route('student.profile') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Account Settings</a>
@@ -38,10 +37,9 @@
                       </a>
                       <div class="flex gap-4 items-center relative">
                           <a href="{{ route('student.schedule') }}" class="text-white hover:opacity-75">Schedule</a>
-                          <a href="{{ route('student.classroom') }}" class="text-white hover:opacity-75">Classroom</a>
                           <div class="relative">
                               <button id="accountPictureMobile" class="block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white">
-                                  <img class="h-full w-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2A7D3pZJJSVoO2hwyCFz1w--NMgFj74ho_w&s" alt="pikachu">
+                                  <img class="h-full w-full object-cover" src="{{ asset('storage/' . $student->profile_picture) }}" alt="Profile">
                               </button>
                               <div id="accountDropDownMobile" class="hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-10">
                                   <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Account Settings</a>
@@ -71,63 +69,53 @@
         </div>
     </x-slot>
 
-    {{-- this is for the booking a lesson --}}
-    <div>
-        @if(isset($teachers) && $teachers->isNotEmpty())
-        <div class="container mx-auto p-4">
-            <h2 class="text-lg font-bold mb-4">Book a Lesson</h2>
-            @if(session('success'))
-                <div class="text-green-500">{{ session('success') }}</div>
-            @endif
-            <form action="{{ route('student.book-lesson') }}" method="POST" class="space-y-4">
-                @csrf
-                <div>
-                    <label for="teacher_id" class="block font-medium">Choose Teacher</label>
-                    <select name="teacher_id" id="teacher_id" class="w-full border p-2">
-                        <option value="">Select a teacher</option>
-                        @foreach($teachers as $teacher)
-                            <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <label for="date" class="block font-medium">Date</label>
-                    <input type="date" name="date" id="date" class="w-full border p-2">
-                </div>
-                <div>
-                    <label for="time" class="block font-medium">Time</label>
-                    <input type="time" name="time" id="time" class="w-full border p-2">
-                </div>
-                <button type="submit" class="bg-blue-500 text-white p-2 rounded">Book Lesson</button>
-            </form>
-        </div>
-        @else
-            <p>No teachers available for booking.</p>
-        @endif
-    
+    <div class="flex justify-center mt-5">
+        <a href="{{ route('student.book-lesson') }}" class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold text-xl py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:bg-blue-600 hover:scale-105">
+            Book Now
+        </a>
     </div>
-
+    
 
     {{-- This is to display the booked schedule --}}
-    <div class="container mx-auto p-4 mt-3" style="height: 50vh">
+    <div class="container mx-auto p-4 mt-3" style="height: 100vh">
       <h2 class="text-lg font-bold mb-4">Your Scheduled Lessons</h2>
 
       @if($studentLessons->isEmpty())
-          <p>No lessons scheduled.</p>
-      @else
-          <ul>
-              @foreach($studentLessons as $lesson)
-                  <li>
-                      Lesson with {{ $lesson->teacher->name }} on {{ $lesson->date }} at {{ $lesson->time }}
-                      <form action="{{ route('student.cancel-lesson', $lesson->id) }}" method="POST" style="display:inline;">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="text-red-500">Cancel</button>
-                      </form>
-                  </li>
-              @endforeach
-          </ul>
-      @endif
+        <p>No lessons scheduled.</p>
+        @else
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto border-collapse border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left border-b">#</th>
+                            <th class="px-4 py-2 text-left border-b">Teacher</th>
+                            <th class="px-4 py-2 text-left border-b">Day</th>
+                            <th class="px-4 py-2 text-left border-b">Time</th>
+                            <th class="px-4 py-2 text-left border-b">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @foreach($studentLessons as $lesson )
+                            <tr class="hover:bg-gray-100">
+                                <td class="px-4 py-2 border-b"><a href="{{ route('student.classroom') }}"><img class="h-24 w-24 object-cover rounded-full" src="{{ asset('storage/' . $lesson->teacher->profile_picture) }}" alt="Profile"></a></td>
+                                <td class="px-4 py-2 border-b">{{ $lesson->teacher->name }}</td>
+                                <td class="px-4 py-2 border-b">{{ $lesson->schedule->day_of_week }}</td>
+                                
+                                <td class="px-4 py-2 border-b">{{ $lesson->schedule->time_slot }}</td>
+                                <td class="px-4 py-2 border-b">
+                                    <form action="{{ route('student.cancel-lesson', $lesson->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500 hover:text-red-700">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+    @endif
+
   </div>
     
 </x-advance-layout>
